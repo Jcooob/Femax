@@ -92,7 +92,9 @@ public class ListaVivienda extends javax.swing.JFrame {
                         v.add(vi.tipo_vivienda);
                         v.add(vi.tipo_alquiler);
                         v.add(vi.persona);
-                        v.add(vi.estado);                    
+                        v.add(vi.estado);
+                        v.add(vi.precio);
+                        v.add(vi.moneda);
                     }
                 DFT.addRow(v);
                 }
@@ -134,6 +136,10 @@ public class ListaVivienda extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         comboTipoAlquiler = new javax.swing.JComboBox<>();
         comboTipoPersona = new javax.swing.JComboBox<>();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        inputPrecio = new javax.swing.JTextField();
+        comboTipoMoneda = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -189,6 +195,7 @@ public class ListaVivienda extends javax.swing.JFrame {
         jLabel1.setText("Ciudad");
 
         inputEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Libre", "Ocupado" }));
+        inputEstado.setSelectedIndex(-1);
         inputEstado.setToolTipText("");
         inputEstado.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -198,33 +205,33 @@ public class ListaVivienda extends javax.swing.JFrame {
 
         tblVivienda.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Id vivienda", "Ciudad", "Distrito", "Direccion", "Referencia", "Tipo vivienda", "Tipo contrato", "Propietario", "Estado"
+                "Id vivienda", "Ciudad", "Distrito", "Direccion", "Referencia", "Tipo vivienda", "Tipo contrato", "Propietario", "Estado", "Precio", "Moneda"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -245,6 +252,12 @@ public class ListaVivienda extends javax.swing.JFrame {
 
         jLabel6.setText("Tipo vivienda");
 
+        comboTipoVivienda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboTipoViviendaActionPerformed(evt);
+            }
+        });
+
         jLabel7.setText("Tipo alquiler");
 
         jLabel8.setText("Dueño");
@@ -255,65 +268,83 @@ public class ListaVivienda extends javax.swing.JFrame {
             }
         });
 
+        jLabel10.setText("Precio");
+
+        jLabel11.setText("Moneda");
+
+        inputPrecio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                inputPrecioActionPerformed(evt);
+            }
+        });
+
+        comboTipoMoneda.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Soles", "Dolares" }));
+        comboTipoMoneda.setSelectedIndex(-1);
+        comboTipoMoneda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboTipoMonedaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(88, 88, 88)
+                .addGap(50, 50, 50)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(layout.createSequentialGroup()
                         .addComponent(btnSave)
-                        .addGap(48, 48, 48)
+                        .addGap(50, 50, 50)
                         .addComponent(jButton2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnImages)
-                        .addGap(34, 34, 34)
+                        .addGap(50, 50, 50)
                         .addComponent(btnUpdate)
-                        .addGap(37, 37, 37)
+                        .addGap(50, 50, 50)
                         .addComponent(btnDelete))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(34, 34, 34)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel9)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(8, 8, 8)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(60, 60, 60)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel9)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(inputReferencia)
-                                    .addComponent(inputDistrito)
-                                    .addComponent(inputDireccion)
-                                    .addComponent(inputCiudad)
-                                    .addComponent(inputEstado, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(comboTipoVivienda, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(comboTipoAlquiler, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(comboTipoPersona, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(44, 44, 44)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 891, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(55, Short.MAX_VALUE))
+                                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 137, Short.MAX_VALUE)
+                                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 137, Short.MAX_VALUE)
+                                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 137, Short.MAX_VALUE)
+                                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 137, Short.MAX_VALUE)
+                                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 137, Short.MAX_VALUE)
+                                    .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 137, Short.MAX_VALUE)
+                                    .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addGap(50, 50, 50)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(inputReferencia)
+                                .addComponent(inputDistrito)
+                                .addComponent(inputDireccion)
+                                .addComponent(inputCiudad)
+                                .addComponent(inputEstado, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(comboTipoVivienda, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(comboTipoAlquiler, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(comboTipoPersona, 0, 170, Short.MAX_VALUE)
+                                .addComponent(inputPrecio)
+                                .addComponent(comboTipoMoneda, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGap(50, 50, 50)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 900, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(50, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 363, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(26, 26, 26)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(inputCiudad)
+                        .addGap(40, 40, 40)
+                        .addComponent(jLabel9)
+                        .addGap(40, 40, 40)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(inputCiudad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -327,7 +358,7 @@ public class ListaVivienda extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(inputReferencia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(19, 19, 19)
+                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(inputEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -342,15 +373,26 @@ public class ListaVivienda extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel8)
-                            .addComponent(comboTipoPersona, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(38, 38, 38)
+                            .addComponent(comboTipoPersona, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel10)
+                            .addComponent(inputPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel11)
+                            .addComponent(comboTipoMoneda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 384, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(60, 60, 60)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnDelete)
                     .addComponent(btnUpdate)
                     .addComponent(btnImages)
                     .addComponent(jButton2)
                     .addComponent(btnSave))
-                .addGap(39, 39, 39))
+                .addGap(41, 41, 41))
         );
 
         pack();
@@ -370,13 +412,16 @@ public class ListaVivienda extends javax.swing.JFrame {
         String tipoAlquiler = ((ComboItem)iTipoAlquiler).getValue();
         Object iPersona = comboTipoPersona.getSelectedItem();
         String persona = ((ComboItem)iPersona).getValue();
+        String precio = inputPrecio.getText();
+        String moneda = comboTipoMoneda.getSelectedItem().toString();
       
         inputCiudad.setBackground(Color.WHITE);
         inputDistrito.setBackground(Color.WHITE);
         inputDireccion.setBackground(Color.WHITE);
         inputReferencia.setBackground(Color.WHITE);
+        inputPrecio.setBackground(Color.WHITE);
         
-        if(ciudad.isEmpty() || distrito.isEmpty() || direccion.isEmpty() || referencia.isEmpty()){
+        if(ciudad.isEmpty() || distrito.isEmpty() || direccion.isEmpty() || referencia.isEmpty() || precio.isEmpty()){
         
             if(ciudad.isEmpty()){
                 inputCiudad.setBackground(new Color(255,153,153));
@@ -390,6 +435,10 @@ public class ListaVivienda extends javax.swing.JFrame {
             if(referencia.isEmpty()){
                 inputReferencia.setBackground(new Color(255,153,153));
             }
+            if(precio.isEmpty()){
+                inputPrecio.setBackground(new Color(255,153,153));
+            }
+            
         }else{
         
             ViviendaRepositorio viviendaRepo = new ViviendaRepositorio();
@@ -403,6 +452,8 @@ public class ListaVivienda extends javax.swing.JFrame {
             viviendaToSave.id_tipo_vivienda = Integer.parseInt(tipoVivienda);
             viviendaToSave.id_tipo_alquiler = Integer.parseInt(tipoAlquiler);
             viviendaToSave.id_persona = Integer.parseInt(persona);
+            viviendaToSave.precio = precio;
+            viviendaToSave.moneda = moneda;
 
             try {
                 viviendaRepo.crearVivienda(viviendaToSave);
@@ -422,6 +473,7 @@ public class ListaVivienda extends javax.swing.JFrame {
         inputDistrito.setText("");
         inputDireccion.setText("");
         inputReferencia.setText("");
+        inputPrecio.setText("");
         mostrarVivienda();
         btnUpdate.setEnabled(false);
         btnSave.setEnabled(true);
@@ -453,13 +505,15 @@ public class ListaVivienda extends javax.swing.JFrame {
         String tipoAlquiler = ((ComboItem)iTipoAlquiler).getValue();
         Object iPersona = comboTipoPersona.getSelectedItem();
         String persona = ((ComboItem)iPersona).getValue();
+        String precio = inputPrecio.getText();
+        String moneda = comboTipoMoneda.getSelectedItem().toString();
       
         inputCiudad.setBackground(Color.WHITE);
         inputDistrito.setBackground(Color.WHITE);
         inputDireccion.setBackground(Color.WHITE);
         inputReferencia.setBackground(Color.WHITE);
         
-        if(ciudad.isEmpty() || distrito.isEmpty() || direccion.isEmpty() || referencia.isEmpty()){
+        if(ciudad.isEmpty() || distrito.isEmpty() || direccion.isEmpty() || referencia.isEmpty() || precio.isEmpty()){
         
             if(ciudad.isEmpty()){
                 inputCiudad.setBackground(new Color(255,153,153));
@@ -473,6 +527,10 @@ public class ListaVivienda extends javax.swing.JFrame {
             if(referencia.isEmpty()){
                 inputReferencia.setBackground(new Color(255,153,153));
             }
+            if(precio.isEmpty()){
+                inputPrecio.setBackground(new Color(255,153,153));
+            }
+            
         }else{
         
             ViviendaRepositorio viviendaRepo = new ViviendaRepositorio();
@@ -487,6 +545,8 @@ public class ListaVivienda extends javax.swing.JFrame {
             viviendaToSave.id_tipo_vivienda = Integer.parseInt(tipoVivienda);
             viviendaToSave.id_tipo_alquiler = Integer.parseInt(tipoAlquiler);
             viviendaToSave.id_persona = Integer.parseInt(persona);
+            viviendaToSave.precio = precio;
+            viviendaToSave.moneda = moneda;
 
             try {
                 viviendaRepo.actualizarVivienda(viviendaToSave);
@@ -513,6 +573,7 @@ public class ListaVivienda extends javax.swing.JFrame {
                     inputDistrito.setText("");
                     inputDireccion.setText("");
                     inputReferencia.setText("");
+                    inputPrecio.setText("");
                     idSelected = null;
                     btnUpdate.setEnabled(false);
                     btnSave.setEnabled(true);
@@ -553,6 +614,8 @@ public class ListaVivienda extends javax.swing.JFrame {
             inputDireccion.setText(v.direccion);
             inputReferencia.setText(v.referencia);
             inputEstado.setSelectedItem(v.estado);
+            inputPrecio.setText(v.precio);
+            comboTipoMoneda.setSelectedItem(v.moneda);
             comboTipoVivienda.setSelectedItem(v.id_tipo_vivienda);
             comboTipoAlquiler.setSelectedItem(v.id_tipo_alquiler);
             comboTipoPersona.setSelectedItem(v.id_persona);
@@ -562,6 +625,18 @@ public class ListaVivienda extends javax.swing.JFrame {
     private void comboTipoPersonaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboTipoPersonaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_comboTipoPersonaActionPerformed
+
+    private void inputPrecioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputPrecioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_inputPrecioActionPerformed
+
+    private void comboTipoMonedaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboTipoMonedaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_comboTipoMonedaActionPerformed
+
+    private void comboTipoViviendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboTipoViviendaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_comboTipoViviendaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -604,15 +679,19 @@ public class ListaVivienda extends javax.swing.JFrame {
     private javax.swing.JButton btnSave;
     private javax.swing.JButton btnUpdate;
     private javax.swing.JComboBox<ComboItem> comboTipoAlquiler;
+    private javax.swing.JComboBox<String> comboTipoMoneda;
     private javax.swing.JComboBox<ComboItem> comboTipoPersona;
     private javax.swing.JComboBox<ComboItem> comboTipoVivienda;
     private javax.swing.JTextField inputCiudad;
     private javax.swing.JTextField inputDireccion;
     private javax.swing.JTextField inputDistrito;
     private javax.swing.JComboBox<String> inputEstado;
+    private javax.swing.JTextField inputPrecio;
     private javax.swing.JTextField inputReferencia;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

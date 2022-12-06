@@ -25,9 +25,9 @@ public class ViviendaRepositorio {
         
         try{
             String SQL = "INSERT INTO vivienda"+
-                "(ciudad, distrito, direccion, referencia, estado, id_tipo_vivienda, id_tipo_alquiler, id_persona)"+
+                "(ciudad, distrito, direccion, referencia, estado, id_tipo_vivienda, id_tipo_alquiler, id_persona, precio, moneda)"+
                 " VALUES "+
-                "('"+vivienda.ciudad+"','"+vivienda.distrito+"','"+vivienda.direccion+"','"+vivienda.referencia+"','"+vivienda.estado+"','"+vivienda.id_tipo_vivienda+"','"+vivienda.id_tipo_alquiler+"','"+vivienda.id_persona+"')";
+                "('"+vivienda.ciudad+"','"+vivienda.distrito+"','"+vivienda.direccion+"','"+vivienda.referencia+"','"+vivienda.estado+"','"+vivienda.id_tipo_vivienda+"','"+vivienda.id_tipo_alquiler+"','"+vivienda.id_persona+"','"+vivienda.precio+"','"+vivienda.moneda+"')";
     
                 PreparedStatement stmt = (PreparedStatement) con.getConexion().prepareStatement(SQL);
                 stmt.execute();
@@ -43,7 +43,7 @@ public class ViviendaRepositorio {
         
         try{
             String SQL = "UPDATE vivienda "+
-                "SET ciudad = ? , distrito = ? , direccion = ? , referencia = ? , id_tipo_vivienda = ? , id_tipo_alquiler = ? , id_persona = ? , estado = ? WHERE id_vivienda = ?";
+                "SET ciudad = ? , distrito = ? , direccion = ? , referencia = ? , id_tipo_vivienda = ? , id_tipo_alquiler = ? , id_persona = ? , estado = ? , precio = ? , moneda = ? WHERE id_vivienda = ?";
     
                 PreparedStatement stmt = (PreparedStatement) con.getConexion().prepareStatement(SQL);
                 stmt.setString(1,vivienda.ciudad);
@@ -54,7 +54,9 @@ public class ViviendaRepositorio {
                 stmt.setInt(6,vivienda.id_tipo_alquiler);
                 stmt.setInt(7,vivienda.id_persona);
                 stmt.setString(8,vivienda.estado);
-                stmt.setInt(9,vivienda.id_vivienda);
+                stmt.setString(9, vivienda.precio);
+                stmt.setString(10, vivienda.moneda);
+                stmt.setInt(11,vivienda.id_vivienda);
                 
                 stmt.execute();
         }
@@ -116,6 +118,8 @@ public class ViviendaRepositorio {
                 vi.id_persona = result.getInt("id_persona");
                 vi.persona = result.getString("persona");
                 vi.estado = result.getString("estado");
+                vi.precio = result.getString("precio");
+                vi.moneda = result.getString("moneda");
                 vivienda.add(vi);
         }
             return vivienda;
@@ -148,6 +152,8 @@ public class ViviendaRepositorio {
                 vi.id_tipo_alquiler = result.getInt("id_tipo_alquiler");
                 vi.id_persona = result.getInt("id_persona");
                 vi.estado = result.getString("estado");
+                vi.precio = result.getString("precio");
+                vi.moneda = result.getString("moneda");
                 vivienda.add(vi);
         }
             return vivienda.get(0);

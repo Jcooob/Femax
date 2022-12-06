@@ -24,6 +24,8 @@ public class Vivienda {
     public int id_persona;
     public String persona;
     public String estado;
+    public String precio;
+    public String moneda;
     public List<ViviendaImagenes> imagenes;
     
     //Metodos set
@@ -63,6 +65,15 @@ public class Vivienda {
     public void setEstado(String estado) {
         this.estado = estado;
     }
+
+    public void setPrecio(String precio) {
+        this.precio = precio;
+    }
+
+    public void setMoneda(String moneda) {
+        this.moneda = moneda;
+    }
+    
     
     //Metodos get
 
@@ -101,4 +112,13 @@ public class Vivienda {
     public String getEstado() {
         return estado;
     }
+
+    public String getPrecio() {
+        return precio;
+    }
+
+    public String getMoneda() {
+        return moneda;
+    }
+    
 }
