@@ -6,7 +6,6 @@ package views;
 
 import clases.ConexionBD;
 import clases.repositorios.PersonaRepositorio;
-import clases.repositorios.UsuarioRepositorio;
 import java.awt.Color;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
@@ -14,7 +13,6 @@ import models.Persona;
 import java.util.List;
 import java.util.Vector;
 import javax.swing.table.DefaultTableModel;
-import models.Usuario;
 
 /**
  *
@@ -479,8 +477,10 @@ public class ListaPersonas extends javax.swing.JFrame {
             btnSave.setEnabled(false);
             String id = tblPersona.getModel().getValueAt(row, 0).toString();
             idSelected = id;
+            
             PersonaRepositorio personaRepo = new PersonaRepositorio();
             Persona v = personaRepo.Get(Integer.parseInt(id));
+            
             inputNombres.setText(v.nombres);
             inputApellidoPaterno.setText(v.apellido_paterno);
             inputApellidoMaterno.setText(v.apellido_materno);

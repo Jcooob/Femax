@@ -116,7 +116,7 @@ public class ListaVivienda extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         btnSave = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
+        btnClear = new javax.swing.JButton();
         inputCiudad = new javax.swing.JTextField();
         btnImages = new javax.swing.JButton();
         inputDireccion = new javax.swing.JTextField();
@@ -156,10 +156,10 @@ public class ListaVivienda extends javax.swing.JFrame {
 
         jLabel5.setText("Estado");
 
-        jButton2.setText("Limpiar");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnClear.setText("Limpiar");
+        btnClear.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnClearActionPerformed(evt);
             }
         });
 
@@ -279,7 +279,7 @@ public class ListaVivienda extends javax.swing.JFrame {
         });
 
         comboTipoMoneda.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Soles", "Dolares" }));
-        comboTipoMoneda.setSelectedIndex(-1);
+        comboTipoMoneda.setSelectedIndex(1);
         comboTipoMoneda.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboTipoMonedaActionPerformed(evt);
@@ -296,7 +296,7 @@ public class ListaVivienda extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnSave)
                         .addGap(50, 50, 50)
-                        .addComponent(jButton2)
+                        .addComponent(btnClear)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnImages)
                         .addGap(50, 50, 50)
@@ -390,7 +390,7 @@ public class ListaVivienda extends javax.swing.JFrame {
                     .addComponent(btnDelete)
                     .addComponent(btnUpdate)
                     .addComponent(btnImages)
-                    .addComponent(jButton2)
+                    .addComponent(btnClear)
                     .addComponent(btnSave))
                 .addGap(41, 41, 41))
         );
@@ -467,7 +467,7 @@ public class ListaVivienda extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btnSaveActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
         // TODO add your handling code here:
         inputCiudad.setText("");
         inputDistrito.setText("");
@@ -477,7 +477,7 @@ public class ListaVivienda extends javax.swing.JFrame {
         mostrarVivienda();
         btnUpdate.setEnabled(false);
         btnSave.setEnabled(true);
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_btnClearActionPerformed
 
     private void btnImagesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImagesActionPerformed
         // TODO add your handling code here:
@@ -607,8 +607,10 @@ public class ListaVivienda extends javax.swing.JFrame {
             btnSave.setEnabled(false);
             String id = tblVivienda.getModel().getValueAt(row, 0).toString();
             idSelected = id;
+            
             ViviendaRepositorio viviendaRepo = new ViviendaRepositorio();
-            Vivienda v = viviendaRepo.Get(Integer.parseInt(id));            
+            Vivienda v = viviendaRepo.Get(Integer.parseInt(id)); 
+            
             inputCiudad.setText(v.ciudad);
             inputDistrito.setText(v.distrito);
             inputDireccion.setText(v.direccion);
@@ -674,6 +676,7 @@ public class ListaVivienda extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnClear;
     private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnImages;
     private javax.swing.JButton btnSave;
@@ -688,7 +691,6 @@ public class ListaVivienda extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> inputEstado;
     private javax.swing.JTextField inputPrecio;
     private javax.swing.JTextField inputReferencia;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;

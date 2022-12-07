@@ -31,26 +31,21 @@ public class ListaServicio extends javax.swing.JFrame {
      */
     public ListaServicio() {
         initComponents();
-        mostrarServicio();
         mostrarVivienda();
         cargarPersonas();
+        mostrarServicio();
     }
     
     public void cargarPersonas(){
         try{
             PersonaRepositorio pRepo = new PersonaRepositorio();
-            System.out.println("1");
             List<Persona> personas1 = pRepo.ListTipo("'ARRENDADOR'");
-            System.out.println("2");
             List<Persona> personas2 = pRepo.ListTipo("'INQUILINO'");
-            System.out.println("3");
             for(Persona p:personas1){
-                System.out.println(p.nombres);
-                inputArrendatario.addItem(new ComboItem(p.nombres+" "+p.apellido_paterno, Integer.toString(p.id_persona)));
+                comboArrendatario.addItem(new ComboItem(p.nombres+" "+p.apellido_paterno, Integer.toString(p.id_persona)));
             }
             for(Persona p:personas2){
-                System.out.println(p.nombres);
-                inputArrendador.addItem(new ComboItem(p.nombres+" "+p.apellido_paterno, Integer.toString(p.id_persona)));
+                comboArrendador.addItem(new ComboItem(p.nombres+" "+p.apellido_paterno, Integer.toString(p.id_persona)));
             }
         }
         catch(Exception e){
@@ -62,18 +57,18 @@ public class ListaServicio extends javax.swing.JFrame {
         try {
             ServicioRepositorio servicioRepo = new ServicioRepositorio();
             List<Servicio> servicios = servicioRepo.List();
-            DefaultTableModel DFT = (DefaultTableModel) jTable1.getModel();
+            DefaultTableModel DFT = (DefaultTableModel) tblServicio.getModel();
             DFT.setRowCount(0);
                 for(Servicio s:servicios){
                     Vector v = new Vector();
                     for (int ii = 1; ii <= servicios.size(); ii++) {
                         v.add(s.id_servicio);
-                        v.add(s.arrendatario);
-                        v.add(s. cliente);
+                        v.add(s.arrendador);
+                        v.add(s.cliente);
                         v.add(s.fecha_acuerdo);
                         v.add(s.fecha_deposito);
                         v.add(s.fecha_entrega);
-                        v.add(s.id_vivienda);                    
+                        v.add(s.id_vivienda);                 
                     }
                 DFT.addRow(v);
                 }
@@ -108,6 +103,7 @@ public class ListaServicio extends javax.swing.JFrame {
                 System.out.println(e);
         }
     }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -122,7 +118,7 @@ public class ListaServicio extends javax.swing.JFrame {
         btnSave = new javax.swing.JButton();
         btnClear = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblServicio = new javax.swing.JTable();
         inputFechaAcuerdo = new javax.swing.JTextField();
         btnUpdate = new javax.swing.JButton();
         jLabel9 = new javax.swing.JLabel();
@@ -135,10 +131,10 @@ public class ListaServicio extends javax.swing.JFrame {
         jScrollPane3 = new javax.swing.JScrollPane();
         tblVivienda = new javax.swing.JTable();
         jLabel3 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
         inputFechaEntrega = new javax.swing.JTextField();
-        inputArrendatario = new javax.swing.JComboBox<>();
-        inputArrendador = new javax.swing.JComboBox<>();
+        comboArrendatario = new javax.swing.JComboBox<>();
+        comboArrendador = new javax.swing.JComboBox<>();
+        inputVivienda = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -158,7 +154,7 @@ public class ListaServicio extends javax.swing.JFrame {
             }
         });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblServicio.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null},
@@ -182,7 +178,7 @@ public class ListaServicio extends javax.swing.JFrame {
                 {null, null, null, null, null, null, null}
             },
             new String [] {
-                "Id de servicio", "Arrendatario", "Cliente", "Fecha de acuerdo", "Fecha de deposito", "Fecha de entrega", "Id de vivienda"
+                "Id de servicio", "Arrendatario", "Arrendador", "Fecha de acuerdo", "Fecha de deposito", "Fecha de entrega", "Id de vivienda"
             }
         ) {
             Class[] types = new Class [] {
@@ -193,7 +189,12 @@ public class ListaServicio extends javax.swing.JFrame {
                 return types [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        tblServicio.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblServicioMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tblServicio);
 
         btnUpdate.setText("Actualizar");
         btnUpdate.addActionListener(new java.awt.event.ActionListener() {
@@ -270,17 +271,15 @@ public class ListaServicio extends javax.swing.JFrame {
 
         jLabel3.setText("Fecha de depósito");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jComboBox1.setSelectedIndex(-1);
-        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+        comboArrendatario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox1ActionPerformed(evt);
+                comboArrendatarioActionPerformed(evt);
             }
         });
 
-        inputArrendador.addActionListener(new java.awt.event.ActionListener() {
+        comboArrendador.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                inputArrendadorActionPerformed(evt);
+                comboArrendadorActionPerformed(evt);
             }
         });
 
@@ -296,53 +295,53 @@ public class ListaServicio extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(btnSave)
-                                .addGap(48, 48, 48)
+                                .addGap(50, 50, 50)
                                 .addComponent(btnClear))
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel9)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 133, Short.MAX_VALUE))))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(inputFechaAcuerdo)
                                     .addComponent(inputFechaDeposito)
                                     .addComponent(inputFechaEntrega)
-                                    .addComponent(jComboBox1, 0, 170, Short.MAX_VALUE)
-                                    .addComponent(inputArrendatario, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(inputArrendador, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(comboArrendatario, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(comboArrendador, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(inputVivienda, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jLabel9))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(104, 104, 104)
+                                .addGap(40, 40, 40)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 928, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(btnUpdate)
-                                .addGap(37, 37, 37)
-                                .addComponent(btnDelete))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(38, 38, 38)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 928, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addGap(41, 41, 41)
+                                .addComponent(btnDelete)
+                                .addGap(11, 11, 11)))))
                 .addContainerGap(50, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(40, 40, 40)
+                .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(37, 37, 37)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(40, 40, 40)
-                        .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel5)
-                            .addComponent(inputArrendatario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel6)
-                            .addComponent(inputArrendador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(comboArrendador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel5)
+                            .addComponent(comboArrendatario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(21, 21, 21)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -358,19 +357,17 @@ public class ListaServicio extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2)
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(87, 87, 87)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(30, 30, 30)
+                            .addComponent(inputVivienda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(40, 40, 40)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
+                .addGap(40, 40, 40)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnClear)
                     .addComponent(btnSave)
                     .addComponent(btnDelete)
                     .addComponent(btnUpdate))
-                .addGap(32, 32, 32))
+                .addContainerGap(45, Short.MAX_VALUE))
         );
 
         pack();
@@ -378,37 +375,48 @@ public class ListaServicio extends javax.swing.JFrame {
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         // TODO add your handling code here:
-        ConexionBD con = new ConexionBD();
+        
+        String arrendatario = comboArrendatario.getSelectedItem().toString();
+        String arrendador = comboArrendador.getSelectedItem().toString();
         String fechaAcuerdo = inputFechaAcuerdo.getText();
         String fechaDeposito = inputFechaDeposito.getText();
         String fechaEntrega = inputFechaAcuerdo.getText();
+        String vivienda = inputVivienda.getText();
         
         inputFechaAcuerdo.setBackground(Color.WHITE);
         inputFechaDeposito.setBackground(Color.WHITE);
         inputFechaAcuerdo.setBackground(Color.WHITE);
+        inputVivienda.setBackground(Color.WHITE);
         
-        if (fechaAcuerdo.isEmpty() || fechaDeposito.isEmpty() || fechaEntrega.isEmpty()){
+        if (fechaAcuerdo.isEmpty() || fechaDeposito.isEmpty() || fechaEntrega.isEmpty() || vivienda.isEmpty()){
             
             if(fechaAcuerdo.isEmpty()){
-                JOptionPane.showMessageDialog(null, "Por favor ingresar la fecha de acuerdo");
+                inputFechaAcuerdo.setBackground(new Color(255, 153, 153));
             }
             if(fechaDeposito.isEmpty()){
-                JOptionPane.showMessageDialog(null, "Por favor ingresar la fecha de deposito");
+                inputFechaDeposito.setBackground(new Color(255, 153, 153));
             }
             if(fechaEntrega.isEmpty()){
-                JOptionPane.showMessageDialog(null, "Por favor ingresar la fecha de entrega");
+                inputFechaEntrega.setBackground(new Color(255, 153, 153));
+            }
+            if(vivienda.isEmpty()){
+                inputVivienda.setBackground(new Color(255, 153, 153));
             }
         }else{
            ServicioRepositorio servicioRepo = new ServicioRepositorio();
 
             Servicio servicioToSave = new Servicio();
+            servicioToSave.arrendador = arrendatario;
+            servicioToSave.cliente = arrendador;
             servicioToSave.fecha_acuerdo = fechaAcuerdo;
             servicioToSave.fecha_deposito = fechaDeposito;
             servicioToSave.fecha_entrega = fechaEntrega;
+            servicioToSave.id_vivienda = Integer.parseInt(vivienda);
         
             try {
                 servicioRepo.crearServicio(servicioToSave);
                 JOptionPane.showMessageDialog(null, "Se guardo exitosamente");
+                mostrarServicio();
             } catch (SQLException ex) {
                 JOptionPane.showMessageDialog(null, "No se pudo guardar, intentelo de nuevo");
             } 
@@ -417,14 +425,97 @@ public class ListaServicio extends javax.swing.JFrame {
 
     private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
         // TODO add your handling code here:
+        inputFechaAcuerdo.setText("");
+        inputFechaDeposito.setText("");
+        inputFechaEntrega.setText("");
+        inputVivienda.setText("");
+        mostrarServicio();
+        mostrarVivienda();
+        btnUpdate.setEnabled(false);
+        btnSave.setEnabled(true);
     }//GEN-LAST:event_btnClearActionPerformed
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
         // TODO add your handling code here:
+        String arrendatario = comboArrendatario.getSelectedItem().toString();
+        String arrendador = comboArrendador.getSelectedItem().toString();
+        String fechaAcuerdo = inputFechaAcuerdo.getText();
+        String fechaDeposito = inputFechaDeposito.getText();
+        String fechaEntrega = inputFechaAcuerdo.getText();
+        String vivienda = inputVivienda.getText();
+        
+        inputFechaAcuerdo.setBackground(Color.WHITE);
+        inputFechaDeposito.setBackground(Color.WHITE);
+        inputFechaAcuerdo.setBackground(Color.WHITE);
+        inputVivienda.setBackground(Color.WHITE);
+        
+        if (fechaAcuerdo.isEmpty() || fechaDeposito.isEmpty() || fechaEntrega.isEmpty() || vivienda.isEmpty()){
+            
+            if(fechaAcuerdo.isEmpty()){
+                inputFechaAcuerdo.setBackground(new Color(255, 153, 153));
+            }
+            if(fechaDeposito.isEmpty()){
+                inputFechaDeposito.setBackground(new Color(255, 153, 153));
+            }
+            if(fechaEntrega.isEmpty()){
+                inputFechaEntrega.setBackground(new Color(255, 153, 153));
+            }
+            if(vivienda.isEmpty()){
+                inputVivienda.setBackground(new Color(255, 153, 153));
+            }
+        }else{
+            
+           ServicioRepositorio servicioRepo = new ServicioRepositorio();
+
+            Servicio servicioToSave = new Servicio();
+            servicioToSave.id_servicio = Integer.parseInt(idSelected);
+            servicioToSave.arrendador = arrendatario;
+            servicioToSave.cliente = arrendador;
+            servicioToSave.fecha_acuerdo = fechaAcuerdo;
+            servicioToSave.fecha_deposito = fechaDeposito;
+            servicioToSave.fecha_entrega = fechaEntrega;
+            servicioToSave.id_vivienda = Integer.parseInt(vivienda);
+        
+            try {
+                servicioRepo.actualizarServicio(servicioToSave);
+                JOptionPane.showMessageDialog(null, "Se actualizó exitosamente");
+                mostrarServicio();
+            } catch (SQLException ex) {
+                System.out.println(ex);
+                JOptionPane.showMessageDialog(null, "No se pudo actualizar, intentelo de nuevo");
+            } 
+       }
     }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         // TODO add your handling code here:
+        int row = tblServicio.getSelectedRow();
+        if(row == -1){
+            JOptionPane.showMessageDialog(null, "Debe seleccionar un elemento de la tabla para eliminar");
+        }
+        else{
+            try {
+                ServicioRepositorio servicioRepo = new ServicioRepositorio();
+                boolean delete = servicioRepo.eliminarServicio(Integer.parseInt(idSelected));
+                if(delete){
+                    inputFechaAcuerdo.setText("");;
+                    inputFechaDeposito.setText("");;
+                    inputFechaEntrega.setText("");;
+                    inputVivienda.setText("");;
+                    idSelected = null;
+                    btnUpdate.setEnabled(false);
+                    btnSave.setEnabled(true);
+                    JOptionPane.showMessageDialog(null, "Se eliminó exitosamente");
+                    mostrarServicio();
+                }
+                else{
+                    JOptionPane.showMessageDialog(null, "No se pudo eliminar, intentelo de nuevo");
+                }
+                
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, "No se pudo eliminar, intentelo de nuevo");
+            }
+        }
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void inputFechaDepositoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputFechaDepositoActionPerformed
@@ -435,22 +526,44 @@ public class ListaServicio extends javax.swing.JFrame {
         // TODO add your handling code here:
         int row = tblVivienda.getSelectedRow();
         if(row >= 0){
-            btnUpdate.setEnabled(true);
-            btnSave.setEnabled(false);
+            
             String id = tblVivienda.getModel().getValueAt(row, 0).toString();
             idSelected = id;
+            
             ViviendaRepositorio viviendaRepo = new ViviendaRepositorio();
             Vivienda v = viviendaRepo.Get(Integer.parseInt(id));
+            inputVivienda.setText(id);
         }
     }//GEN-LAST:event_tblViviendaMouseClicked
 
-    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+    private void comboArrendadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboArrendadorActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox1ActionPerformed
+    }//GEN-LAST:event_comboArrendadorActionPerformed
 
-    private void inputArrendadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputArrendadorActionPerformed
+    private void tblServicioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblServicioMouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_inputArrendadorActionPerformed
+        int row = tblServicio.getSelectedRow();
+        if(row >= 0){
+            btnUpdate.setEnabled(true);
+            btnSave.setEnabled(false);
+            String id = tblServicio.getModel().getValueAt(row, 0).toString();
+            idSelected = id;
+            
+            ServicioRepositorio servicioRepo = new ServicioRepositorio();
+            Servicio ser = servicioRepo.Get(Integer.parseInt(id));  
+            
+            comboArrendador.setSelectedItem(ser.arrendador);
+            comboArrendatario.setSelectedItem(ser.cliente);
+            inputFechaAcuerdo.setText(ser.fecha_acuerdo);
+            inputFechaDeposito.setText(ser.fecha_deposito);
+            inputFechaEntrega.setText(ser.fecha_entrega);
+            inputVivienda.setText(String.valueOf(ser.id_vivienda));
+        }
+    }//GEN-LAST:event_tblServicioMouseClicked
+
+    private void comboArrendatarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboArrendatarioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_comboArrendatarioActionPerformed
 
     /**
      * @param args the command line arguments
@@ -492,12 +605,12 @@ public class ListaServicio extends javax.swing.JFrame {
     private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnSave;
     private javax.swing.JButton btnUpdate;
-    private javax.swing.JComboBox<ComboItem> inputArrendador;
-    private javax.swing.JComboBox<ComboItem> inputArrendatario;
+    private javax.swing.JComboBox<ComboItem> comboArrendador;
+    private javax.swing.JComboBox<ComboItem> comboArrendatario;
     private javax.swing.JTextField inputFechaAcuerdo;
     private javax.swing.JTextField inputFechaDeposito;
     private javax.swing.JTextField inputFechaEntrega;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JTextField inputVivienda;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -507,7 +620,7 @@ public class ListaServicio extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable tblServicio;
     private javax.swing.JTable tblVivienda;
     // End of variables declaration//GEN-END:variables
 }

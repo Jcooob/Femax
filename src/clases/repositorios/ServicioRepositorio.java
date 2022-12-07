@@ -24,15 +24,14 @@ public class ServicioRepositorio {
         
         try{
             String SQL = "INSERT INTO servicio"+
-                "(fecha_acuerdo, fecha_deposito, fecha_entrega)"+
+                "(arrendatario, cliente, fecha_acuerdo, fecha_deposito, fecha_entrega, id_vivienda)"+
                 " VALUES "+
-                "('"+servicio.fecha_acuerdo+"','"+servicio.fecha_deposito+"','"+servicio.fecha_entrega+"')";
+                "('"+servicio.arrendador+"', '"+servicio.cliente+"','"+servicio.fecha_acuerdo+"','"+servicio.fecha_deposito+"','"+servicio.fecha_entrega+"','"+servicio.id_vivienda+"')";
     
                 PreparedStatement stmt = (PreparedStatement) con.getConexion().prepareStatement(SQL);
                 stmt.execute();
         }
         catch(SQLException e){
-        
         System.out.println(e);
         }
         return servicio;
@@ -45,19 +44,21 @@ public class ServicioRepositorio {
                 "SET arrendatario = ? , cliente = ? , fecha_acuerdo = ? , fecha_deposito = ? , fecha_entrega = ? , id_vivienda = ? WHERE id_servicio = ?";
     
                 PreparedStatement stmt = (PreparedStatement) con.getConexion().prepareStatement(SQL);
-                stmt.setInt(1,servicio.arrendatario);
-                stmt.setInt(2,servicio.cliente);
+                stmt.setString(1,servicio.arrendador);
+                stmt.setString(2,servicio.cliente);
                 stmt.setString(3, servicio.fecha_acuerdo);
                 stmt.setString(4, servicio.fecha_deposito);
                 stmt.setString(5, servicio.fecha_entrega);
                 stmt.setInt(6, servicio.id_vivienda);
+                stmt.setInt(7, servicio.id_servicio);
                 
                 stmt.execute();
         }
         catch(SQLException e){
-        
+            
             System.out.println(e);
             return null;
+            
         }
         return servicio;
     }
@@ -71,7 +72,6 @@ public class ServicioRepositorio {
             stmt.execute();
         } 
         catch(SQLException e){
-            
             System.out.println(e);
             return false;
         }
@@ -91,8 +91,8 @@ public class ServicioRepositorio {
             while (result.next()) {
                 Servicio s = new Servicio();
                 s.id_servicio = result.getInt("id_servicio");
-                s.arrendatario = result.getInt("arrendatario");
-                s.cliente = result.getInt("cliente");
+                s.arrendador = result.getString("arrendatario");
+                s.cliente = result.getString("cliente");
                 s.fecha_acuerdo = result.getString("fecha_acuerdo");
                 s.fecha_deposito = result.getString("fecha_deposito");
                 s.fecha_entrega = result.getString("fecha_entrega");              
@@ -121,8 +121,8 @@ public class ServicioRepositorio {
             while (result.next()) {
                 Servicio s = new Servicio();
                 s.id_servicio = result.getInt("id_servicio");
-                s.arrendatario = result.getInt("arrendatario");
-                s.cliente = result.getInt("cliente");
+                s.arrendador = result.getString("arrendatario");
+                s.cliente = result.getString("cliente");
                 s.fecha_acuerdo = result.getString("fecha_acuerdo");
                 s.fecha_deposito = result.getString("fecha_deposito");
                 s.fecha_entrega = result.getString("fecha_entrega");              

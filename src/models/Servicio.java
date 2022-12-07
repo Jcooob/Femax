@@ -11,8 +11,8 @@ package models;
 public class Servicio {
     
     public int id_servicio;
-    public int arrendatario;
-    public int cliente;
+    public String arrendador;
+    public String cliente;
     public String fecha_acuerdo;
     public String fecha_deposito;
     public String fecha_entrega;
@@ -24,11 +24,11 @@ public class Servicio {
         this.id_servicio = id_servicio;
     }
 
-    public void setArrendatario(int arrendatario) {
-        this.arrendatario = arrendatario;
+    public void setArrendatario(String arrendatario) {
+        this.arrendador = arrendatario;
     }
 
-    public void setCliente(int cliente) {
+    public void setCliente(String cliente) {
         this.cliente = cliente;
     }
 
@@ -54,11 +54,11 @@ public class Servicio {
         return id_servicio;
     }
 
-    public int getArrendatario() {
-        return arrendatario;
+    public String getArrendatario() {
+        return arrendador;
     }
 
-    public int getCliente() {
+    public String getCliente() {
         return cliente;
     }
 

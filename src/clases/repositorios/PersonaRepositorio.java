@@ -182,7 +182,6 @@ public class PersonaRepositorio {
         
         try{ 
             PreparedStatement ps = con.getConexion().prepareStatement("SELECT * FROM persona WHERE tipo_persona = " + tipo);
-            System.out.print("SELECT * FROM persona WHERE tipo_persona = " + tipo);
             ResultSet result = ps.executeQuery();
             List<Persona> personas = new ArrayList<Persona>();
             
@@ -209,5 +208,4 @@ public class PersonaRepositorio {
             return null;
         }
     }
-     
 }
