@@ -23,10 +23,11 @@ public class ServicioRepositorio {
     public Servicio crearServicio(Servicio servicio) throws SQLException{
         
         try{
-            String SQL = "INSERT INTO servicio"+
-                "(arrendatario, cliente, fecha_acuerdo, fecha_deposito, fecha_entrega, id_vivienda)"+
+            String SQL = "INSERT INTO servicio "+
+                "(arrendador, arrendatario, fecha_acuerdo, fecha_deposito, fecha_entrega, id_vivienda)"+
                 " VALUES "+
-                "('"+servicio.arrendador+"', '"+servicio.cliente+"','"+servicio.fecha_acuerdo+"','"+servicio.fecha_deposito+"','"+servicio.fecha_entrega+"','"+servicio.id_vivienda+"')";
+                "('"+servicio.arrendador+"', '"+servicio.cliente+"','"+servicio.fecha_acuerdo+"','"+servicio.fecha_deposito+"',"
+                    + "'"+servicio.fecha_entrega+"','"+servicio.id_vivienda+"')";
     
                 PreparedStatement stmt = (PreparedStatement) con.getConexion().prepareStatement(SQL);
                 stmt.execute();
@@ -41,7 +42,8 @@ public class ServicioRepositorio {
         
         try{
             String SQL = "UPDATE servicio "+
-                "SET arrendatario = ? , cliente = ? , fecha_acuerdo = ? , fecha_deposito = ? , fecha_entrega = ? , id_vivienda = ? WHERE id_servicio = ?";
+                "SET arrendador = ? , arrendatario = ? , fecha_acuerdo = ? , fecha_deposito = ? , fecha_entrega = ? , "
+                    + "id_vivienda = ? WHERE id_servicio = ?";
     
                 PreparedStatement stmt = (PreparedStatement) con.getConexion().prepareStatement(SQL);
                 stmt.setString(1,servicio.arrendador);
@@ -91,8 +93,8 @@ public class ServicioRepositorio {
             while (result.next()) {
                 Servicio s = new Servicio();
                 s.id_servicio = result.getInt("id_servicio");
-                s.arrendador = result.getString("arrendatario");
-                s.cliente = result.getString("cliente");
+                s.arrendador = result.getString("arrendador");
+                s.cliente = result.getString("arrendatario");
                 s.fecha_acuerdo = result.getString("fecha_acuerdo");
                 s.fecha_deposito = result.getString("fecha_deposito");
                 s.fecha_entrega = result.getString("fecha_entrega");              
@@ -121,8 +123,8 @@ public class ServicioRepositorio {
             while (result.next()) {
                 Servicio s = new Servicio();
                 s.id_servicio = result.getInt("id_servicio");
-                s.arrendador = result.getString("arrendatario");
-                s.cliente = result.getString("cliente");
+                s.arrendador = result.getString("arrendador");
+                s.cliente = result.getString("arrendatario");
                 s.fecha_acuerdo = result.getString("fecha_acuerdo");
                 s.fecha_deposito = result.getString("fecha_deposito");
                 s.fecha_entrega = result.getString("fecha_entrega");              

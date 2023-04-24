@@ -27,7 +27,8 @@ public class UsuarioRepositorio {
             String SQL = "INSERT INTO usuario "+
                 "(usuario, contrasenia, nombres, apellidos, correo, telefono, rol) "+
                 " VALUES "+
-                "('"+usuario.usuario+"','"+usuario.contrasenia+"','"+usuario.nombres+"','"+usuario.apellidos+"','"+usuario.correo+"','"+usuario.telefono+"','"+usuario.rol+"')";
+                "('"+usuario.usuario+"','"+usuario.contrasenia+"','"+usuario.nombres+"','"+usuario.apellidos+"',"
+                    + "'"+usuario.correo+"','"+usuario.telefono+"','"+usuario.rol+"')";
                 PreparedStatement stmt = (PreparedStatement) con.getConexion().prepareStatement(SQL);
                 stmt.execute();
         }
@@ -42,7 +43,8 @@ public class UsuarioRepositorio {
         
         try{
             String SQL = "UPDATE usuario "+
-                "SET usuario = ? , contrasenia = ? , nombres = ? , apellidos = ? , correo = ? , telefono = ? , rol = ? WHERE id_usuario = ?";
+                "SET usuario = ? , contrasenia = ? , nombres = ? , apellidos = ? , correo = ? , telefono = ? , rol = ? "
+                    + "WHERE id_usuario = ?";
     
                 PreparedStatement stmt = (PreparedStatement) con.getConexion().prepareStatement(SQL);
                 stmt.setString(1,usuario.usuario);
@@ -147,7 +149,8 @@ public class UsuarioRepositorio {
     public Usuario ValidateUser(String usuario, String contrasenia){
         
         try{
-            PreparedStatement ps = con.getConexion().prepareStatement("SELECT * FROM usuario WHERE usuario = '"+usuario+"' and contrasenia = '"+contrasenia+"'");
+            PreparedStatement ps = con.getConexion().prepareStatement("SELECT * FROM usuario WHERE usuario = '"+usuario+"' "
+                    + "and contrasenia = '"+contrasenia+"'");
             ResultSet result = ps.executeQuery();
             List<Usuario> usuarios = new ArrayList<Usuario>();
             ResultSetMetaData RSMD = result.getMetaData();

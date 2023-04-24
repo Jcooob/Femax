@@ -19,7 +19,6 @@ public class Bienvenido extends javax.swing.JFrame {
      */
     public Bienvenido(String nombreUsuario) {
         initComponents();
-        System.out.println(nombreUsuario);
         lblBienvenido.setText("Bienvenido "+ nombreUsuario.toString());
     }
 

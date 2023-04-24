@@ -19,8 +19,6 @@ public class Persona {
     public String tipo_documento;
     public String numero_documento;
     public String tipo_persona;
-
-    //Metodos set
     
     public void setId_persona(int id_persona) {
         this.id_persona = id_persona;
@@ -58,8 +56,6 @@ public class Persona {
         this.tipo_persona = tipo_persona;
     }
     
-    //Metodos get
-
     public int getId_persona() {
         return id_persona;
     }

@@ -178,7 +178,7 @@ public class ListaPersonas extends javax.swing.JFrame {
             }
         });
 
-        inputTipoPersona.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ARRENDADOR", "INQUILINO" }));
+        inputTipoPersona.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ARRENDADOR", "ARRENDATARIO" }));
         inputTipoPersona.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 inputTipoPersonaActionPerformed(evt);

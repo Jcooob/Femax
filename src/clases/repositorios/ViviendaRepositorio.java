@@ -27,7 +27,9 @@ public class ViviendaRepositorio {
             String SQL = "INSERT INTO vivienda"+
                 "(ciudad, distrito, direccion, referencia, estado, id_tipo_vivienda, id_tipo_alquiler, id_persona, precio, moneda)"+
                 " VALUES "+
-                "('"+vivienda.ciudad+"','"+vivienda.distrito+"','"+vivienda.direccion+"','"+vivienda.referencia+"','"+vivienda.estado+"','"+vivienda.id_tipo_vivienda+"','"+vivienda.id_tipo_alquiler+"','"+vivienda.id_persona+"','"+vivienda.precio+"','"+vivienda.moneda+"')";
+                "('"+vivienda.ciudad+"','"+vivienda.distrito+"','"+vivienda.direccion+"','"+vivienda.referencia+"',"
+                    + "'"+vivienda.estado+"','"+vivienda.id_tipo_vivienda+"','"+vivienda.id_tipo_alquiler+"','"+vivienda.id_persona+"',"
+                    + "'"+vivienda.precio+"','"+vivienda.moneda+"')";
     
                 PreparedStatement stmt = (PreparedStatement) con.getConexion().prepareStatement(SQL);
                 stmt.execute();
@@ -43,7 +45,8 @@ public class ViviendaRepositorio {
         
         try{
             String SQL = "UPDATE vivienda "+
-                "SET ciudad = ? , distrito = ? , direccion = ? , referencia = ? , id_tipo_vivienda = ? , id_tipo_alquiler = ? , id_persona = ? , estado = ? , precio = ? , moneda = ? WHERE id_vivienda = ?";
+                "SET ciudad = ? , distrito = ? , direccion = ? , referencia = ? , id_tipo_vivienda = ? , id_tipo_alquiler = ? , "
+                    + "id_persona = ? , estado = ? , precio = ? , moneda = ? WHERE id_vivienda = ?";
     
                 PreparedStatement stmt = (PreparedStatement) con.getConexion().prepareStatement(SQL);
                 stmt.setString(1,vivienda.ciudad);

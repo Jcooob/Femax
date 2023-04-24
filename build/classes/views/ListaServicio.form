@@ -249,9 +249,9 @@
                 <Column editable="true" title="Distrito" type="java.lang.String"/>
                 <Column editable="true" title="Direccion" type="java.lang.String"/>
                 <Column editable="true" title="Referencia" type="java.lang.String"/>
-                <Column editable="true" title="Id tipo vivienda" type="java.lang.Integer"/>
-                <Column editable="true" title="Id tipo alquiler" type="java.lang.Integer"/>
-                <Column editable="true" title="Id persona" type="java.lang.Integer"/>
+                <Column editable="true" title="Tipo vivienda" type="java.lang.Integer"/>
+                <Column editable="true" title="Tipo contrato" type="java.lang.Integer"/>
+                <Column editable="true" title="Propietario" type="java.lang.Integer"/>
                 <Column editable="true" title="Estado" type="java.lang.String"/>
               </Table>
             </Property>

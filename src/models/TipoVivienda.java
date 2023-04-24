@@ -12,8 +12,6 @@ public class TipoVivienda {
     
     public int id_tipo_vivienda;
     public String nombre;
-    
-    //Metodos set
 
     public void setId_tipo_vivienda(int id_tipo_vivienda) {
         this.id_tipo_vivienda = id_tipo_vivienda;
@@ -22,8 +20,6 @@ public class TipoVivienda {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
-    
-    //Metodos get
 
     public int getId_tipo_vivienda() {
         return id_tipo_vivienda;

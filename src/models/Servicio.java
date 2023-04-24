@@ -17,8 +17,6 @@ public class Servicio {
     public String fecha_deposito;
     public String fecha_entrega;
     public int id_vivienda;
-    
-    //Metodos set
 
     public void setId_servicio(int id_servicio) {
         this.id_servicio = id_servicio;
@@ -47,8 +45,6 @@ public class Servicio {
     public void setId_vivienda(int id_vivienda) {
         this.id_vivienda = id_vivienda;
     }
-    
-    //Metodos get
 
     public int getId_servicio() {
         return id_servicio;

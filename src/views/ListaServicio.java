@@ -39,8 +39,8 @@ public class ListaServicio extends javax.swing.JFrame {
     public void cargarPersonas(){
         try{
             PersonaRepositorio pRepo = new PersonaRepositorio();
-            List<Persona> personas1 = pRepo.ListTipo("'ARRENDADOR'");
-            List<Persona> personas2 = pRepo.ListTipo("'INQUILINO'");
+            List<Persona> personas1 = pRepo.ListTipo("'ARRENDATARIO'");
+            List<Persona> personas2 = pRepo.ListTipo("'ARRENDADOR'");
             for(Persona p:personas1){
                 comboArrendatario.addItem(new ComboItem(p.nombres+" "+p.apellido_paterno, Integer.toString(p.id_persona)));
             }
@@ -251,7 +251,7 @@ public class ListaServicio extends javax.swing.JFrame {
                 {null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Id vivienda", "Ciudad", "Distrito", "Direccion", "Referencia", "Id tipo vivienda", "Id tipo alquiler", "Id persona", "Estado"
+                "Id vivienda", "Ciudad", "Distrito", "Direccion", "Referencia", "Tipo vivienda", "Tipo contrato", "Propietario", "Estado"
             }
         ) {
             Class[] types = new Class [] {

@@ -13,8 +13,6 @@ public class ViviendaImagenes {
     public int id_vivienda_imagenes;
     public int id_vivienda;
     public String imagen;
-    
-    //Metodos set
 
     public void setId_vivienda_imagenes(int id_vivienda_imagenes) {
         this.id_vivienda_imagenes = id_vivienda_imagenes;
@@ -27,8 +25,6 @@ public class ViviendaImagenes {
     public void setImagen(String imagen) {
         this.imagen = imagen;
     }
-    
-    //Metodos get
 
     public int getId_vivienda_imagenes() {
         return id_vivienda_imagenes;

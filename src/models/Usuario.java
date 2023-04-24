@@ -17,8 +17,6 @@ public class Usuario {
     public String correo;
     public String telefono;
     public String rol;
-
-   // setters
     
     public void setId_usuario(int id_usuario) {
         this.id_usuario = id_usuario;
@@ -51,8 +49,6 @@ public class Usuario {
     public void setRol(String rol) {
         this.rol = rol;
     }
-    
-    //getters
 
     public int getId_usuario() {
         return id_usuario;

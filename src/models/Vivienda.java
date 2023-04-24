@@ -27,8 +27,6 @@ public class Vivienda {
     public String precio;
     public String moneda;
     public List<ViviendaImagenes> imagenes;
-    
-    //Metodos set
 
     public void setId_vivienda(int id_vivienda) {
         this.id_vivienda = id_vivienda;

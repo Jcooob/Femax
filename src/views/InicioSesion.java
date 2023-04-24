@@ -160,14 +160,14 @@ public class InicioSesion extends javax.swing.JFrame {
                 else{
                     this.setVisible(false);
                     
-                    //Se le manda parametro para que muestre el nombre en el home´principal
+                    //Se le manda parametro para que muestre el nombre en el home principal
                     new Bienvenido(usu.nombres).setVisible(true);
                     
                     
                 }
             } catch (Exception ex) {
                 System.out.print(ex);
-                JOptionPane.showMessageDialog(null, "Nel pastel");
+                JOptionPane.showMessageDialog(null, "No se pudo iniciar sesión");
             }
         }
         

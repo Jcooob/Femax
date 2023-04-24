@@ -26,7 +26,9 @@ public class PersonaRepositorio {
             String SQL = "INSERT INTO persona"+
                 "(nombres, apellido_paterno, apellido_materno, correo, telefono, tipo_documento, numero_documento, tipo_persona)"+
                 " VALUES "+
-                "('"+persona.nombres+"','"+persona.apellido_paterno+"','"+persona.apellido_materno+"','"+persona.correo+"','"+persona.telefono+"','"+persona.tipo_documento+"','"+persona.numero_documento+"','"+persona.tipo_persona+"')";
+                "('"+persona.nombres+"','"+persona.apellido_paterno+"','"+persona.apellido_materno+"',"
+                    + "'"+persona.correo+"','"+persona.telefono+"','"+persona.tipo_documento+"','"+persona.numero_documento+"',"
+                    + "'"+persona.tipo_persona+"')";
     
                 PreparedStatement stmt = (PreparedStatement) con.getConexion().prepareStatement(SQL);
                 stmt.execute();
@@ -43,7 +45,8 @@ public class PersonaRepositorio {
         
         try{ 
             String SQL = "UPDATE persona "+
-                "SET nombres = ? , apellido_paterno = ? , apellido_materno = ? , correo = ? , telefono = ? , tipo_documento = ? , numero_documento = ? , tipo_persona = ? WHERE id_persona = ?";
+                "SET nombres = ? , apellido_paterno = ? , apellido_materno = ? , correo = ? , telefono = ? , "
+                    + "tipo_documento = ? , numero_documento = ? , tipo_persona = ? WHERE id_persona = ?";
     
                 PreparedStatement stmt = (PreparedStatement) con.getConexion().prepareStatement(SQL);
                 stmt.setString(1,persona.nombres);

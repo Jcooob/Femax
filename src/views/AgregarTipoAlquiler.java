@@ -70,6 +70,7 @@ public class AgregarTipoAlquiler extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setAlwaysOnTop(true);
+        setModalExclusionType(null);
 
         jLabel2.setText("Nombre");
 
